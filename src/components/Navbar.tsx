@@ -1,18 +1,23 @@
-import  { useState } from "react";
-import { LuMoon } from "react-icons/lu";
+import { useState, useEffect } from "react";
+import { LuMoon, LuSun } from "react-icons/lu";
 
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false);
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
+  useEffect(() => {
+    document.body.classList.toggle("dark", darkMode);
+  }, [darkMode]);
 
   return (
     <nav className="navbar">
       <h1>Where in the world?</h1>
-      <LuMoon className="moon-icon" />
-      <button className="dark-mode-toggle" onClick={toggleDarkMode}>Dark Mode</button>
+      <button
+        className="dark-mode-toggle"
+        onClick={() => setDarkMode(!darkMode)}
+      >
+        {darkMode ? <LuSun /> : <LuMoon />}
+        {darkMode ? "Light Mode" : "Dark Mode"}
+      </button>
     </nav>
   );
 };

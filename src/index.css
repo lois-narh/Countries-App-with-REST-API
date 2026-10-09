@@ -25,6 +25,14 @@ body {
   color: var(--text);
   font-family: 'Nunito Sans', sans-serif;
 }
+.dark-mode-toggle {
+  background-color: var(--elements);
+  color: var(--text);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
 .navbar {
   display: flex;
