@@ -1,8 +1,9 @@
 import type { Country } from "../types";
+import { Link } from "react-router-dom";
 
 const Card = ({ country }: { country: Country }) => {
   return (
-    <div className="card">
+    <Link to={`/country/${country.codes.alpha_3}`} className="card">
       <div className="card__image">
         <img src={country.flag.url_png} alt={country.flag.description} />
       </div>
@@ -12,7 +13,7 @@ const Card = ({ country }: { country: Country }) => {
         <p><strong>Region:</strong> {country.region}</p>
         <p><strong>Capital:</strong> {country.capitals?.[0]?.name}</p>
       </div>
-    </div>
+    </Link>
   );
 };
 
