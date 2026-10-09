@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 
 :root {
@@ -14,8 +13,9 @@ body.dark {
   --text: hsl(0, 100%, 100%);
   --input-text: hsl(0, 0%, 100%);
 }
-*{
-   margin: 0;
+
+* {
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
@@ -25,6 +25,8 @@ body {
   color: var(--text);
   font-family: 'Nunito Sans', sans-serif;
 }
+
+
 .dark-mode-toggle {
   background-color: var(--elements);
   color: var(--text);
@@ -43,7 +45,6 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-
 .navbar h1 {
   color: var(--text);
   font-size: 1.3rem;
@@ -53,12 +54,15 @@ body {
 
 .navbar button {
   display: flex;
+  align-items: center;
+  gap: 8px;
   border: none;
   background-color: var(--elements);
   color: var(--text);
   cursor: pointer;
   font-weight: 300;
 }
+
 
 input {
   border: none;
@@ -86,9 +90,6 @@ select {
   font-size: 12px;
 }
 
-.moon-icon {
-   margin-left: 55rem;
-}
 .controls {
   display: flex;
   justify-content: space-between;
@@ -98,14 +99,13 @@ select {
 
 .cards {
   display: grid;
- grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, auto);
+  grid-template-columns: repeat(4, 1fr);
   gap: 58px;
   padding: 0 40px 80px;
 }
 
 .card {
-  display:block;
+  display: block;
   text-decoration: none;
   background-color: var(--elements);
   color: var(--text);
@@ -140,8 +140,10 @@ select {
 .card__info strong {
   font-weight: 600;
 }
+
+
 .details__content {
-  padding: 40px 80px;
+  padding: 40px clamp(16px, 5vw, 80px);
 }
 
 .details__back-button {
@@ -159,7 +161,7 @@ select {
 
 .details__info {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   gap: 120px;
   align-items: center;
   margin-top: 80px;
@@ -218,4 +220,69 @@ select {
   font-size: 14px;
   font-weight: 300;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile View*/
+@media (max-width: 600px) {
+  .navbar {
+    padding: 24px 16px;
+  }
+
+  .navbar h1 {
+    font-size: 14px;
+    margin-left: 0;
+  }
+
+  .navbar button {
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 40px;
+    padding: 24px 16px;
+  }
+
+  .controls input {
+    max-width: none;
+  }
+
+  .controls select {
+    align-self: flex-start;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 0 40px 40px;
+  }
+
+  .details__info {
+    gap: 40px;
+    margin-top: 64px;
+  }
+
+  .details__text h2 {
+    font-size: 22px;
+  }
+
+  .details__columns {
+    margin-bottom: 40px;
+  }
+
+  .details__borders {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
