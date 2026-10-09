@@ -10,13 +10,14 @@ const App = () => {
     <div>
       <Navbar />
 
-      <input 
-        type="text" 
-        placeholder="Search for a country..." 
+      <div className="controls">
+      <input
+        type="text"
+        placeholder="Search for a country..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <select 
+      <select
         value={region}
         onChange={(e) => setRegion(e.target.value)}
       >
@@ -27,6 +28,7 @@ const App = () => {
         <option value="Europe">Europe</option>
         <option value="Oceania">Oceania</option>
       </select>
+    </div>
     </div>
   );
 }
