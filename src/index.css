@@ -87,9 +87,46 @@ select {
   align-items: center;
   padding: 40px;
 }
+
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 40px;
-  padding: 0 40px;
+ grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 58px;
+  padding: 0 40px 80px;
+}
+
+.card {
+  background-color: var(--elements);
+  color: var(--text);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+.card__image img {
+  display: block;
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+}
+
+.card__info {
+  padding: 24px;
+}
+
+.card__info h2 {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.card__info p {
+  font-size: 14px;
+  font-weight: 300;
+  margin-bottom: 6px;
+}
+
+.card__info strong {
+  font-weight: 600;
 }

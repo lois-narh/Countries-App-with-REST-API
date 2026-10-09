@@ -20,6 +20,18 @@ const App = () => {
         setCountries(result.data.objects);
       });
   }, []);
+  const filteredCountries = countries
+  .filter((c) => c.flag?.url_png)
+  .filter((c) =>
+    c.names.common.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+  .filter((c) => region === "" || c.region === region);
+
+const isFiltering = searchTerm !== "" || region !== "";
+
+const visibleCountries = isFiltering
+  ? filteredCountries
+  : filteredCountries.slice(0, 8);
 
   return(
     <div>
@@ -45,9 +57,10 @@ const App = () => {
       </select>
     </div>
     <div className="cards">
-        {countries.map((country) => (
-          <Card key={country.names.common} country={country} />
-        ))}
+      {visibleCountries.map((country) => (
+  <Card key={country.names.common} country={country} />
+))}
+      
       </div>
     </div>
   );
