@@ -1,10 +1,25 @@
-import React, {useState} from 'react';
+import {useState, useEffect} from 'react';
 import Navbar from './components/Navbar.tsx';
+import Card from './components/Card.tsx';
+import type {Country} from './types.ts';
 import './index.css';
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [region, setRegion] = useState('');
+  const [countries, setCountries] = useState<Country[]>([]);
+
+  useEffect(() => {
+    fetch(
+      "https://api.restcountries.com/countries/v5?limit=100&response_fields=names.common,flag.url_png,flag.description,population,region,capitals",
+      { headers: { Authorization: `Bearer ${import.meta.env.VITE_API_KEY}` } }
+    )
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        setCountries(result.data.objects);
+      });
+  }, []);
 
   return(
     <div>
@@ -29,6 +44,11 @@ const App = () => {
         <option value="Oceania">Oceania</option>
       </select>
     </div>
+    <div className="cards">
+        {countries.map((country) => (
+          <Card key={country.names.common} country={country} />
+        ))}
+      </div>
     </div>
   );
 }
