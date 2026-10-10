@@ -1,4 +1,4 @@
-# REST Countries API with color theme switcher solution
+# REST Countries API with color theme switcher
 
 This is my solution to the [REST Countries API with color theme switcher challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca). I built it to practise my coding and problem solving.
 
@@ -35,11 +35,11 @@ Users should be able to:
 
 Light mode:
 
-![Light mode screenshot of the countries app]("./assets/screenshot-light")
+![Light mode screenshot of the countries app](./src/assets/screenshot-light.png)
 
 Dark mode:
 
-![Dark mode screenshot of the countries app]("./assets/screenshot-dark")
+![Dark mode screenshot of the countries app](./src/assets/screenshot-dark.png)
 
 ### Links
 
