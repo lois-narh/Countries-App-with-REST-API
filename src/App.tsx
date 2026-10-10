@@ -4,22 +4,23 @@ import Details from "./Details.tsx";
 import Navbar from "./components/Navbar.tsx";
 import Card from "./components/Card.tsx";
 import type { Country } from "./types.ts";
+import countriesData from "./data/countries.json";
 import "./index.css";
+
+const getInitialCountries = (): Country[] => {
+  const cached = localStorage.getItem("countries-v2");
+  return cached
+    ? JSON.parse(cached)
+    : (countriesData as unknown as Country[]);
+};
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [region, setRegion] = useState("");
-  const [countries, setCountries] = useState<Country[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [countries, setCountries] = useState<Country[]>(getInitialCountries);
 
   useEffect(() => {
-    const cached = localStorage.getItem("countries-v1");
-    if (cached) {
-      setCountries(JSON.parse(cached));
-      setLoading(false);
-      return;
-    }
+    if (localStorage.getItem("countries-v2")) return;
 
     const baseUrl =
       "https://api.restcountries.com/countries/v5?limit=100&response_fields=names.common,names.native,codes.alpha_3,flag.url_png,flag.description,population,region,subregion,capitals,tlds,currencies,languages,borders";
@@ -37,10 +38,9 @@ const App = () => {
       .then((pages) => {
         const all = pages.flat();
         setCountries(all);
-        localStorage.setItem("countries-v1", JSON.stringify(all));
+        localStorage.setItem("countries-v2", JSON.stringify(all));
       })
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
+      .catch((err) => console.error(err.message));
   }, []);
 
   const filteredCountries = countries
@@ -83,9 +83,6 @@ const App = () => {
                   <option value="Oceania">Oceania</option>
                 </select>
               </div>
-
-              {loading && <p className="status">Loading countries...</p>}
-              {error && <p className="status">{error}</p>}
 
               <div className="cards">
                 {visibleCountries.map((country) => (
