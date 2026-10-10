@@ -10,20 +10,37 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [region, setRegion] = useState("");
   const [countries, setCountries] = useState<Country[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch(
-      "https://api.restcountries.com/countries/v5?limit=100&response_fields=names.common,names.native,codes.alpha_3,flag.url_png,flag.description,population,region,subregion,capitals,tlds,currencies,languages,borders",
-      { headers: { Authorization: `Bearer ${import.meta.env.VITE_API_KEY}` } }
-    )
-      .then((res) => res.json())
-      .then((result) => {
-        if (result.errors) {
-          console.error(result.errors[0].message);
-          return;
-        }
-        setCountries(result.data.objects);
+    const cached = localStorage.getItem("countries-v1");
+    if (cached) {
+      setCountries(JSON.parse(cached));
+      setLoading(false);
+      return;
+    }
+
+    const baseUrl =
+      "https://api.restcountries.com/countries/v5?limit=100&response_fields=names.common,names.native,codes.alpha_3,flag.url_png,flag.description,population,region,subregion,capitals,tlds,currencies,languages,borders";
+
+    const getPage = async (offset: number) => {
+      const res = await fetch(`${baseUrl}&offset=${offset}`, {
+        headers: { Authorization: `Bearer ${import.meta.env.VITE_API_KEY}` },
       });
+      const result = await res.json();
+      if (result.errors) throw new Error(result.errors[0].message);
+      return result.data.objects as Country[];
+    };
+
+    Promise.all([getPage(0), getPage(100), getPage(200)])
+      .then((pages) => {
+        const all = pages.flat();
+        setCountries(all);
+        localStorage.setItem("countries-v1", JSON.stringify(all));
+      })
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
   }, []);
 
   const filteredCountries = countries
@@ -66,9 +83,13 @@ const App = () => {
                   <option value="Oceania">Oceania</option>
                 </select>
               </div>
+
+              {loading && <p className="status">Loading countries...</p>}
+              {error && <p className="status">{error}</p>}
+
               <div className="cards">
                 {visibleCountries.map((country) => (
-                  <Card key={country.names.common} country={country} />
+                  <Card key={country.codes.alpha_3} country={country} />
                 ))}
               </div>
             </>
