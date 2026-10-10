@@ -35,11 +35,11 @@ Users should be able to:
 
 Light mode:
 
-![Light mode screenshot of the countries app](./assets/screenshot-light.png)
+![Light mode screenshot of the countries app](./src/assets/screenshot-light.png)
 
 Dark mode:
 
-![Dark mode screenshot of the countries app](./assets/screenshot-dark.png)
+![Dark mode screenshot of the countries app](./src/assets/screenshot-dark.png)
 
 ### Links
 
