@@ -5,7 +5,7 @@ const Card = ({ country }: { country: Country }) => {
   return (
     <Link to={`/country/${country.codes.alpha_3}`} className="card">
       <div className="card__image">
-        <img src={country.flag.url_png} alt={country.flag.description} />
+        <img src={country.flag.url_png} alt="" loading="lazy" />
       </div>
       <div className="card__info">
         <h2>{country.names.common}</h2>

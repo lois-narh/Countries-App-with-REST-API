@@ -6,7 +6,7 @@ const Details = ({ countries }: { countries: Country[] }) => {
   const { code } = useParams();
   const country = countries.find((c) => c.codes.alpha_3 === code);
 
-  if (!country) return <p>Loading...</p>;
+  if (!country) return <p>Country not found.</p>;
 
   const nativeName = Object.values(country.names.native ?? {})[0]?.common;
   const currencies = country.currencies?.map((c) => c.name).join(", ");
@@ -24,23 +24,43 @@ const Details = ({ countries }: { countries: Country[] }) => {
       </Link>
 
       <div className="details__info">
-        <img src={country.flag.url_png} alt={country.flag.description} />
+        <img
+          src={country.flag.url_png}
+          alt={`Flag of ${country.names.common}`}
+        />
 
         <div className="details__text">
           <h2>{country.names.common}</h2>
 
           <div className="details__columns">
             <div>
-              <p><strong>Native Name:</strong> {nativeName}</p>
-              <p><strong>Population:</strong> {country.population.toLocaleString()}</p>
-              <p><strong>Region:</strong> {country.region}</p>
-              <p><strong>Sub Region:</strong> {country.subregion}</p>
-              <p><strong>Capital:</strong> {country.capitals?.[0]?.name}</p>
+              <p>
+                <strong>Native Name:</strong> {nativeName}
+              </p>
+              <p>
+                <strong>Population:</strong>{" "}
+                {country.population.toLocaleString()}
+              </p>
+              <p>
+                <strong>Region:</strong> {country.region}
+              </p>
+              <p>
+                <strong>Sub Region:</strong> {country.subregion}
+              </p>
+              <p>
+                <strong>Capital:</strong> {country.capitals?.[0]?.name}
+              </p>
             </div>
             <div>
-              <p><strong>Top Level Domain:</strong> {country.tlds?.join(", ")}</p>
-              <p><strong>Currencies:</strong> {currencies}</p>
-              <p><strong>Languages:</strong> {languages}</p>
+              <p>
+                <strong>Top Level Domain:</strong> {country.tlds?.join(", ")}
+              </p>
+              <p>
+                <strong>Currencies:</strong> {currencies}
+              </p>
+              <p>
+                <strong>Languages:</strong> {languages}
+              </p>
             </div>
           </div>
 
@@ -60,7 +80,7 @@ const Details = ({ countries }: { countries: Country[] }) => {
                   <span key={b.code} className="details__border">
                     {b.code}
                   </span>
-                )
+                ),
               )}
             </div>
           </div>
